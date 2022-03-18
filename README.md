@@ -2,6 +2,24 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## client side rendered app: react (cra)
+
+/// -> database which is Firebase
+/// -> react-loading-skeleton
+/// -> tailwind
+
+// folder structure
+/// src
+/// -> components
+/// -> constants
+/// -> context
+/// -> helpers
+/// -> hooks
+/// -> pages
+/// -> lib (firebase going to live here)
+/// -> services (firebase functions in here)
+/// -> styles (tailwind's folder (app/tailwind))
+
 ## Available Scripts
 
 In the project directory, you can run:
