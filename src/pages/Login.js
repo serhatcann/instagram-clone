@@ -1,18 +1,30 @@
 import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import FirebaseContext from '../context/firebase';
+import * as ROUTES from '../constants/routes';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = () => {
 	const navigate = useNavigate();
-	const { firebase } = useContext(FirebaseContext);
-
+	const { auth } = useContext(FirebaseContext);
 	const [emailAddress, setEmailAddress] = useState('');
 	const [password, setPassword] = useState('');
 
 	const [error, setError] = useState('');
 	const isInvalid = password === '' || emailAddress === '';
 
-	const handleLogin = () => {};
+	const handleLogin = async (event) => {
+		event.preventDefault();
+
+		try {
+			await signInWithEmailAndPassword(auth, emailAddress, password);
+			navigate(ROUTES.DASHBOARD);
+		} catch (error) {
+			setEmailAddress('');
+			setPassword('');
+			setError(error.message);
+		}
+	};
 
 	useEffect(() => {
 		document.title = 'Login - Instagram';
@@ -64,7 +76,7 @@ const Login = () => {
 				<div className='flex justify-center items-center flex-col w-full bg-white p-4 rounded border border-gray-primary'>
 					<p className='text-sm'>
 						Don't have an account?{` `}
-						<Link to='/signup' className='font-bold text-blue-medium'>
+						<Link to={ROUTES.SIGN_UP} className='font-bold text-blue-medium'>
 							Sign Up
 						</Link>
 					</p>
