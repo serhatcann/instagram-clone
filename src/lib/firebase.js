@@ -3,6 +3,7 @@ import {
 	getAuth,
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
+	onAuthStateChanged,
 	updateProfile,
 } from 'firebase/auth';
 
@@ -39,6 +40,7 @@ export {
 	auth,
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
+	onAuthStateChanged,
 	updateProfile,
 	collection,
 	query,
