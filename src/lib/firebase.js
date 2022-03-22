@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import {
 	getAuth,
 	signInWithEmailAndPassword,
+	signOut,
 	createUserWithEmailAndPassword,
 	onAuthStateChanged,
 	updateProfile,
@@ -39,6 +40,7 @@ export {
 	FieldValue,
 	auth,
 	signInWithEmailAndPassword,
+	signOut,
 	createUserWithEmailAndPassword,
 	onAuthStateChanged,
 	updateProfile,
