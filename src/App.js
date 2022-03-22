@@ -11,9 +11,9 @@ function App() {
 		<Router>
 			<Suspense fallback={<p>Loading...</p>}>
 				<Routes>
-					<Route path={ROUTES.LOGIN} element={<Login />} exact />
-					<Route path={ROUTES.SIGN_UP} element={<SignUp />} exact />
-					<Route element={<NotFound />} />
+					<Route path={ROUTES.LOGIN} element={<Login />} />
+					<Route path={ROUTES.SIGN_UP} element={<SignUp />} />
+					<Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
 				</Routes>
 			</Suspense>
 		</Router>
