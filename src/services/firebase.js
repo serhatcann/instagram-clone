@@ -7,6 +7,7 @@ import {
 	where,
 } from '../lib/firebase';
 
+// checks firestore if given (passed from sign up form) username is exists
 export const doesUsernameExist = async (username) => {
 	const q = query(
 		collection(firestore, 'users'),
@@ -17,6 +18,7 @@ export const doesUsernameExist = async (username) => {
 	return result.docs?.length > 0 ? true : false;
 };
 
+// get user from the firestore where userId === userId (passed from the auth)
 export const getUserByUserId = async (userId) => {
 	const q = query(
 		collection(firestore, 'users'),
