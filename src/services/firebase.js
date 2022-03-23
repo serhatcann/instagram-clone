@@ -1,8 +1,10 @@
-import { limit } from 'firebase/firestore';
+import { doc, limit } from 'firebase/firestore';
 import {
 	firestore,
 	getDocs,
-	FieldValue,
+	updateDoc,
+	arrayUnion,
+	arrayRemove,
 	collection,
 	query,
 	where,
@@ -46,4 +48,29 @@ export const getSuggestedProfiles = async (userId, following) => {
 			(profile) =>
 				profile.userId !== userId && !following.includes(profile.userId),
 		);
+};
+
+// Below 2 functions does basically toggles the follow/unfollow for the user and target profile
+export const updateLoggedInUserFollowing = async (
+	loggedInUserDocId,
+	profileId,
+	isFollowingProfile,
+) => {
+	return await updateDoc(doc(firestore, 'users', loggedInUserDocId), {
+		following: isFollowingProfile
+			? arrayRemove(profileId)
+			: arrayUnion(profileId),
+	});
+};
+
+export const updateFollowedUserFollowers = async (
+	profileDocId,
+	loggedInUserId,
+	isFollowingProfile,
+) => {
+	return await updateDoc(doc(firestore, 'users', profileDocId), {
+		followers: isFollowingProfile
+			? arrayRemove(loggedInUserId)
+			: arrayUnion(loggedInUserId),
+	});
 };

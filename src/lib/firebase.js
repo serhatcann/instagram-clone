@@ -10,9 +10,12 @@ import {
 
 import {
 	getFirestore,
+	doc,
 	getDocs,
 	setDoc,
-	doc,
+	updateDoc,
+	arrayUnion,
+	arrayRemove,
 	collection,
 	query,
 	where,
@@ -30,21 +33,25 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const auth = getAuth();
 const firestore = getFirestore();
-const { FieldValue } = firestore;
 
 export {
 	firestore,
 	doc,
 	getDocs,
 	setDoc,
-	FieldValue,
+	updateDoc,
+	arrayUnion,
+	arrayRemove,
+	collection,
+	query,
+	where,
+};
+
+export {
 	auth,
 	signInWithEmailAndPassword,
 	signOut,
 	createUserWithEmailAndPassword,
 	onAuthStateChanged,
 	updateProfile,
-	collection,
-	query,
-	where,
 };
