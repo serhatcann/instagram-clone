@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Timeline from '../components/Timeline';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 const Dashboard = () => {
 	useEffect(() => {
 		document.title = 'Instagram';
