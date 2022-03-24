@@ -56,7 +56,7 @@ export const updateLoggedInUserFollowing = async (
 	profileId,
 	isFollowingProfile,
 ) => {
-	return await updateDoc(doc(firestore, 'users', loggedInUserDocId), {
+	await updateDoc(doc(firestore, 'users', loggedInUserDocId), {
 		following: isFollowingProfile
 			? arrayRemove(profileId)
 			: arrayUnion(profileId),
@@ -68,7 +68,7 @@ export const updateFollowedUserFollowers = async (
 	loggedInUserId,
 	isFollowingProfile,
 ) => {
-	return await updateDoc(doc(firestore, 'users', profileDocId), {
+	await updateDoc(doc(firestore, 'users', profileDocId), {
 		followers: isFollowingProfile
 			? arrayRemove(loggedInUserId)
 			: arrayUnion(loggedInUserId),
@@ -104,4 +104,10 @@ export const getPhotos = async (userId, following) => {
 		}),
 	);
 	return photosWithUserDetails;
+};
+
+export const toggleLikesOfPhoto = async (isLiked, docId, userId) => {
+	await updateDoc(doc(firestore, 'photos', docId), {
+		likes: isLiked ? arrayRemove(userId) : arrayUnion(userId),
+	});
 };
