@@ -74,3 +74,34 @@ export const updateFollowedUserFollowers = async (
 			: arrayUnion(loggedInUserId),
 	});
 };
+
+// get Timeline photos with the details usernames and likes
+// userFollowedPhotos gets the photo document of following people
+//
+// photosWithUserDetails maps the photos and from userId checks if its liked or not by our user
+// fetches username from userId then returns all of them
+export const getPhotos = async (userId, following) => {
+	const q = query(
+		collection(firestore, 'photos'),
+		where('userId', 'in', following),
+	);
+	const result = await getDocs(q);
+
+	const userFollowedPhotos = result?.docs.map((photo) => ({
+		...photo.data(),
+		docId: photo.id,
+	}));
+
+	const photosWithUserDetails = await Promise.all(
+		userFollowedPhotos.map(async (photo) => {
+			let userLikedPhoto = false;
+			if (photo.likes.includes(userId)) {
+				userLikedPhoto = true;
+			}
+			const user = await getUserByUserId(photo.userId);
+			const { username } = user[0];
+			return { username, ...photo, userLikedPhoto };
+		}),
+	);
+	return photosWithUserDetails;
+};
