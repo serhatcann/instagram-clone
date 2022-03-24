@@ -111,3 +111,9 @@ export const toggleLikesOfPhoto = async (isLiked, docId, userId) => {
 		likes: isLiked ? arrayRemove(userId) : arrayUnion(userId),
 	});
 };
+
+export const postCommentOnPhoto = async (displayName, docId, comment) => {
+	await updateDoc(doc(firestore, 'photos', docId), {
+		comments: arrayUnion({ displayName, comment }),
+	});
+};
