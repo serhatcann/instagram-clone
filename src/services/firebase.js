@@ -21,6 +21,30 @@ export const doesUsernameExist = async (username) => {
 	return result?.docs.length > 0 ? true : false;
 };
 
+// checks firestore if given (passed from profile page) and returns user
+export const getUserByUsername = async (username) => {
+	const q = query(
+		collection(firestore, 'users'),
+		where('username', '==', username),
+	);
+	const result = await getDocs(q);
+
+	return result?.docs.map((item) => ({ ...item.data(), docId: item.id }));
+};
+
+export const getUserPhotosByUsername = async (userId) => {
+	const q = query(
+		collection(firestore, 'photos'),
+		where('userId', '==', userId),
+	);
+	const result = await getDocs(q);
+	const photos = result.docs.map((photo) => ({
+		...photo.data(),
+		docId: photo.id,
+	}));
+	return photos;
+};
+
 // get user from the firestore where userId === userId (passed from the auth)
 export const getUserByUserId = async (userId) => {
 	const q = query(
