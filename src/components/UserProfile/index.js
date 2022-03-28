@@ -1,5 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useReducer, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Photos from './Photos';
@@ -21,20 +20,23 @@ const UserProfile = () => {
 		reducer,
 		initialState,
 	);
+	const [profileExist, setProfileExist] = useState(false);
 
 	const { username } = useParams();
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const getProfileInfoAndPhotos = async (username) => {
-			const [user] = await getUserByUsername(username);
+			const [userFromFirebase] = await getUserByUsername(username);
 
-			if (user) {
-				const photos = await getUserPhotosByUsername(user.userId);
+			if (userFromFirebase) {
+				setProfileExist(true);
+
+				const photos = await getUserPhotosByUsername(userFromFirebase.userId);
 				dispatch({
-					profile: user,
+					profile: userFromFirebase,
 					photosCollection: photos,
-					followerCount: user.followers.length,
+					followerCount: userFromFirebase.followers.length,
 				});
 			} else {
 				navigate(ROUTES.NOT_FOUND);
@@ -44,7 +46,7 @@ const UserProfile = () => {
 		getProfileInfoAndPhotos(username);
 	}, [navigate, username]);
 
-	return (
+	return profileExist ? (
 		<>
 			<Header
 				photosCount={photosCollection ? photosCollection.length : 0}
@@ -55,19 +57,7 @@ const UserProfile = () => {
 
 			<Photos photos={photosCollection} />
 		</>
-	);
-};
-
-UserProfile.propTypes = {
-	user: PropTypes.shape({
-		dateCreated: PropTypes.number.isRequired,
-		emailAddress: PropTypes.string.isRequired,
-		followers: PropTypes.array.isRequired,
-		following: PropTypes.array.isRequired,
-		fullName: PropTypes.string.isRequired,
-		userId: PropTypes.string.isRequired,
-		username: PropTypes.string.isRequired,
-	}).isRequired,
+	) : null;
 };
 
 export default UserProfile;
