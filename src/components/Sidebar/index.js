@@ -8,7 +8,6 @@ const Sidebar = () => {
 	const { user } = useUser();
 
 	useEffect(() => {
-		console.log('user', user);
 		if (user) {
 			setShouldRender(true);
 		}

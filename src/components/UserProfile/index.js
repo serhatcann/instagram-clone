@@ -36,7 +36,7 @@ const UserProfile = () => {
 				dispatch({
 					profile: userFromFirebase,
 					photosCollection: photos,
-					followerCount: userFromFirebase.followers.length,
+					followerCount: userFromFirebase.followers?.length || 0,
 				});
 			} else {
 				navigate(ROUTES.NOT_FOUND);
