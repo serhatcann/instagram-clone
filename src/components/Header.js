@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from '../lib/firebase';
 import FirebaseContext from '../context/firebase';
 import UserContext from '../context/user';
+import { DEFAULT_IMAGE_PATH } from '../constants/paths';
 import * as ROUTES from '../constants/routes';
+import useUser from '../hooks/use-user';
 
 const Header = () => {
 	const { auth } = useContext(FirebaseContext);
-	const { user } = useContext(UserContext);
-
+	const { user: loggedInUser } = useContext(UserContext);
+	const { user } = useUser(loggedInUser?.uid);
 	const navigate = useNavigate();
 
 	return (
@@ -27,7 +29,7 @@ const Header = () => {
 						</h1>
 					</div>
 					<div className='text-gray-700 text-center flex items-center align-items'>
-						{user ? (
+						{loggedInUser ? (
 							<>
 								<Link to={ROUTES.DASHBOARD} aria-label='Dashboard'>
 									<svg
@@ -72,14 +74,13 @@ const Header = () => {
 									</svg>
 								</button>
 								<div className='flex items-center cursor-pointer '>
-									<Link to={`/p/${user.displayName}`}>
+									<Link to={`/p/${user?.username}`}>
 										<img
-											src={`/images/avatars/${user.displayName}.jpg`}
+											src={`/images/avatars/${user?.username}.jpg`}
 											onError={(event) => {
-												event.target.src = '/images/avatars/kermit.jpg';
-												event.onerror = null;
+												event.target.src = DEFAULT_IMAGE_PATH;
 											}}
-											alt={`${user.displayName} profile`}
+											alt={`${user?.username} profile`}
 											className='rounded-full h-8 w-8 flex'
 										/>
 									</Link>

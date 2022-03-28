@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { toggleFollow } from '../../services/firebase';
+import { toggleFollow, getUserByUserId } from '../../services/firebase';
+import LoggedInUserContext from '../../context/logged-in-user';
 
 const SuggestedProfile = ({
 	profileDocId,
@@ -11,6 +12,7 @@ const SuggestedProfile = ({
 	loggedInUserDocId,
 }) => {
 	const [followed, setFollowed] = useState(false);
+	const { setActiveUser } = useContext(LoggedInUserContext);
 
 	const handleFollowUser = async () => {
 		setFollowed(true);
@@ -22,6 +24,8 @@ const SuggestedProfile = ({
 			profileId,
 			loggedInUserId,
 		);
+		const [user] = await getUserByUserId(loggedInUserId);
+		setActiveUser(user);
 	};
 
 	return !followed ? (

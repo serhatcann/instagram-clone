@@ -1,28 +1,22 @@
-import { useState, useEffect } from 'react';
-import useUser from '../../hooks/use-user';
+import { useContext } from 'react';
 import User from './User';
 import Suggestions from './Suggestions';
+import LoggedInUserContext from '../../context/logged-in-user';
 
 const Sidebar = () => {
-	const [shouldRender, setShouldRender] = useState(false);
-	const { user } = useUser();
+	const { user: { docId = '', fullName, username, userId, following } = {} } =
+		useContext(LoggedInUserContext);
 
-	useEffect(() => {
-		if (user) {
-			setShouldRender(true);
-		}
-	}, [user]);
-
-	return shouldRender ? (
+	return (
 		<div className='p-4'>
-			<User username={user.username} fullName={user.fullName} />
+			<User username={username} fullName={fullName} />
 			<Suggestions
-				loggedInUserId={user.userId}
-				following={user.following}
-				loggedInUserDocId={user.docId}
+				loggedInUserId={userId}
+				following={following}
+				loggedInUserDocId={docId}
 			/>
 		</div>
-	) : null;
+	);
 };
 
 export default Sidebar;

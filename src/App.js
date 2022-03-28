@@ -23,7 +23,10 @@ function App() {
 						<Route
 							path={ROUTES.DASHBOARD}
 							element={<ProtectedRoute user={user} />}>
-							<Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+							<Route
+								path={ROUTES.DASHBOARD}
+								element={<Dashboard user={user} />}
+							/>
 						</Route>
 
 						<Route path={ROUTES.LOGIN} element={<IsUserLoggedIn user={user} />}>

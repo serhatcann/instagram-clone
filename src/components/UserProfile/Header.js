@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import useUser from '../../hooks/use-user';
 import { isUserFollowingProfile, toggleFollow } from '../../services/firebase';
+import UserContext from '../../context/user';
 
 const Header = ({
 	photosCount,
@@ -17,9 +18,11 @@ const Header = ({
 	followerCount,
 	setFollowerCount,
 }) => {
-	const { user } = useUser();
+	const { user: loggedInUserId } = useContext(UserContext);
+
+	const { user } = useUser(loggedInUserId?.uid);
 	const [isFollowingProfile, setIsFollowingProfile] = useState(null);
-	const activeBtnFollow = user.username && user.username !== profileUserName;
+	const activeBtnFollow = user?.username && user?.username !== profileUserName;
 
 	const handleToggleFollow = async () => {
 		await toggleFollow(
@@ -51,19 +54,21 @@ const Header = ({
 			setIsFollowingProfile(isFollowing);
 		};
 
-		if (user.username && profileUserId) {
+		if (user?.username && profileUserId) {
 			isLoggedInUserFollowingProfile();
 		}
-	}, [user.username, profileUserId]);
+	}, [user?.username, profileUserId]);
 
 	return (
 		<div className='grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg'>
-			<div className='container flex justify-center'>
-				<img
-					src={`/images/avatars/${profileUserName}.jpg`}
-					alt={`${profileUserName} profile`}
-					className='rounded-full h-40 w-40 flex'
-				/>
+			<div className='container flex justify-center items-center'>
+				{profileUserName && (
+					<img
+						src={`/images/avatars/${profileUserName}.jpg`}
+						alt={`${profileUserName} profile`}
+						className='rounded-full h-40 w-40 flex'
+					/>
+				)}
 			</div>
 			<div className='flex items-center justify-center flex-col col-span-2'>
 				<div className='container flex items-center '>
