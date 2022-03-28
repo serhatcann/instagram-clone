@@ -47,13 +47,13 @@ const Header = () => {
 								<button
 									type='button'
 									title='Sign Out'
-									onClick={() => {
-										signOut(auth);
+									onClick={async () => {
+										await signOut(auth);
 										navigate(ROUTES.LOGIN);
 									}}
-									onKeyDown={(event) => {
+									onKeyDown={async (event) => {
 										if (event.key === 'Enter') {
-											signOut(auth);
+											await signOut(auth);
 											navigate(ROUTES.LOGIN);
 										}
 									}}>
