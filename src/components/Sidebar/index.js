@@ -1,22 +1,29 @@
+import { useState, useEffect } from 'react';
 import useUser from '../../hooks/use-user';
 import User from './User';
 import Suggestions from './Suggestions';
 
 const Sidebar = () => {
-	const {
-		user: { docId, fullName, username, userId: loggedInUserId, following },
-	} = useUser();
+	const [shouldRender, setShouldRender] = useState(false);
+	const { user } = useUser();
 
-	return (
+	useEffect(() => {
+		console.log('user', user);
+		if (user) {
+			setShouldRender(true);
+		}
+	}, [user]);
+
+	return shouldRender ? (
 		<div className='p-4'>
-			<User username={username} fullName={fullName} />
+			<User username={user.username} fullName={user.fullName} />
 			<Suggestions
-				loggedInUserId={loggedInUserId}
-				following={following}
-				loggedInUserDocId={docId}
+				loggedInUserId={user.userId}
+				following={user.following}
+				loggedInUserDocId={user.docId}
 			/>
 		</div>
-	);
+	) : null;
 };
 
 export default Sidebar;
