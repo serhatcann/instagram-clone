@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import UserContext from '../../context/user';
 import { toggleLikesOfPhoto } from '../../services/firebase';

@@ -1,4 +1,3 @@
-import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import usePhotos from '../hooks/use-photos';
 import Post from './Post';
