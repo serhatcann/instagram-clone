@@ -31,7 +31,7 @@ const AddComment = ({ docId, comments, setComments, commentInput }) => {
 					type='text'
 					aria-label='Add a comment'
 					autoComplete='off'
-					className='text-sm text-gray-base w-full  mr-3 py-5 px-4'
+					className='text-gray-base w-full  mr-3 py-3 px-4'
 					name='add-comment'
 					placeholder='Add a comment...'
 					value={comment}

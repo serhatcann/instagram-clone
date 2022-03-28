@@ -20,7 +20,7 @@ const Actions = ({ docId, totalLikes, likedPhoto, handleFocus }) => {
 
 	return (
 		<>
-			<div className='flex justify-between p-4 '>
+			<div className='flex justify-between p-2 '>
 				<div className='flex'>
 					<svg
 						onClick={handleToggleLiked}
@@ -30,7 +30,7 @@ const Actions = ({ docId, totalLikes, likedPhoto, handleFocus }) => {
 							}
 						}}
 						xmlns='http://www.w3.org/2000/svg'
-						className={`w-8 mr-4 h-6 select-none cursor-pointer ${
+						className={`w-7 mr-4 h-7 select-none cursor-pointer ${
 							toggleLiked ? 'fill-red text-red-primary' : 'text-black-light'
 						}`}
 						fill='none'
@@ -51,7 +51,7 @@ const Actions = ({ docId, totalLikes, likedPhoto, handleFocus }) => {
 							}
 						}}
 						xmlns='http://www.w3.org/2000/svg'
-						className='w-8 h-6 select-none cursor-pointer text-black-light'
+						className='w-7 h-7 select-none cursor-pointer text-black-light'
 						fill='none'
 						viewBox='0 0 24 24'
 						stroke='currentColor'
