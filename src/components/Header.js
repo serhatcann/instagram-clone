@@ -75,6 +75,10 @@ const Header = () => {
 									<Link to={`/p/${user.displayName}`}>
 										<img
 											src={`/images/avatars/${user.displayName}.jpg`}
+											onError={(event) => {
+												event.target.src = '/images/avatars/kermit.jpg';
+												event.onerror = null;
+											}}
 											alt={`${user.displayName} profile`}
 											className='rounded-full h-8 w-8 flex'
 										/>
