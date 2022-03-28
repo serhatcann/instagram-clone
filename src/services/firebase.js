@@ -74,7 +74,43 @@ export const getSuggestedProfiles = async (userId, following) => {
 		);
 };
 
-// Below 2 functions does basically toggles the follow/unfollow for the user and target profile
+export const isUserFollowingProfile = async (
+	loggedInUsername,
+	profileUserId,
+) => {
+	const q = query(
+		collection(firestore, 'users'),
+		where('username', '==', loggedInUsername),
+		where('following', 'array-contains', profileUserId),
+	);
+	const result = await getDocs(q);
+
+	return result?.docs.length > 0 ? true : false;
+};
+
+// Calls updateLoggedInUserFollowing and updateFollowedUserFollowers functions
+// to toggle the follow / unfollow for the user and target profile
+export const toggleFollow = async (
+	isFollowingProfile,
+	loggedInUserDocId,
+	profileDocId,
+	profileUserId,
+	loggedInUserId,
+) => {
+	Promise.all([
+		updateLoggedInUserFollowing(
+			loggedInUserDocId,
+			profileUserId,
+			isFollowingProfile,
+		),
+		updateFollowedUserFollowers(
+			profileDocId,
+			loggedInUserId,
+			isFollowingProfile,
+		),
+	]);
+};
+
 export const updateLoggedInUserFollowing = async (
 	loggedInUserDocId,
 	profileId,

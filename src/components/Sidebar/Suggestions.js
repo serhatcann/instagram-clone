@@ -4,18 +4,18 @@ import Skeleton from 'react-loading-skeleton';
 import { getSuggestedProfiles } from '../../services/firebase';
 import SuggestedProfile from './SuggestedProfile';
 
-const Suggestions = ({ userId, following, loggedInUserDocId }) => {
+const Suggestions = ({ loggedInUserId, following, loggedInUserDocId }) => {
 	const [profiles, setProfiles] = useState(null);
 
 	useEffect(() => {
 		const suggestedProfiles = async () => {
-			const response = await getSuggestedProfiles(userId, following);
+			const response = await getSuggestedProfiles(loggedInUserId, following);
 			setProfiles(response);
 		};
-		if (userId) {
+		if (loggedInUserId) {
 			suggestedProfiles();
 		}
-	}, [userId, following]);
+	}, [loggedInUserId, following]);
 
 	return !profiles ? (
 		<Skeleton count={1} height={150} className='mt-5' />
@@ -31,7 +31,7 @@ const Suggestions = ({ userId, following, loggedInUserDocId }) => {
 						profileDocId={profile.docId}
 						username={profile.username}
 						profileId={profile.userId}
-						userId={userId}
+						loggedInUserId={loggedInUserId}
 						loggedInUserDocId={loggedInUserDocId}
 					/>
 				))}
