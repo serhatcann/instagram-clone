@@ -51,7 +51,7 @@ const SignUp = () => {
 					dateCreated: Date.now(),
 				});
 
-				navigate(ROUTES.DASHBOARD);
+				navigate(ROUTES.LOGIN);
 			} catch (error) {
 				setError(error.message);
 			}
