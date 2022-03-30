@@ -22,12 +22,12 @@ import {
 } from 'firebase/firestore';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyA-vNImCQ_oTw4OwnRtMyYsbougmxR1TYQ',
-	authDomain: 'instagram-clone-7dc88.firebaseapp.com',
-	projectId: 'instagram-clone-7dc88',
-	storageBucket: 'instagram-clone-7dc88.appspot.com',
-	messagingSenderId: '990561831155',
-	appId: '1:990561831155:web:793b28d40207352c20cf86',
+	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+	authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 initializeApp(firebaseConfig);
