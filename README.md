@@ -1,7 +1,7 @@
 # Instagram Clone App
 
 This is a simple Instagram clone project with some of its core features. Created with CRA(Create React App) and used Firebase for the backend.
-You can preview this app by clicking [Instagram Clone App](https://instagram-clone-xi-seven.vercel.app)
+You can preview this app by clicking [Instagram Clone App](https://serhatcann-clone.vercel.app)
 
 ## Technologies
 
